@@ -1,0 +1,10 @@
+<% provide(:title, title) %>
+
+<ul class="products">
+  <% @products.each do |product| %>
+    <%# <%= image_tag(product.picture.url) %> %>
+    <%= link_to product.name, product_path(product) %>
+    Price: <%= product.price %>
+    <br>
+  <% end %>
+</ul>
