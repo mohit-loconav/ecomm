@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       # forwading_url = session[:forwading_url]
       log_in(user)
       flash[:success] = "logged in successfully"
-      redirect_to root_url
+      redirect_to category_path
       # redirect_to forwading_url || user_path(user)
     else
       flash.now[:danger] = "Invalid email/password combination"

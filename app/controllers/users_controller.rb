@@ -8,7 +8,8 @@ class UsersController < ApplicationController
     @user = User.new(user_create_params)
     if @user.save
       flash[:success] = "User registered"
-      redirect_to "/"
+      log_in(@user)
+      redirect_to category_path
     else
       render "new"
     end

@@ -2,9 +2,8 @@
 
 <ul class="products">
   <% @products.each do |product| %>
-    <%# <%= image_tag(product.picture.url) %> %>
-    <%= link_to product.name, product_path(product) %>
-    Price: <%= product.price %>
+    <%= render "shared/product_info", { product: product } %>
+    <%= link_to "Add to cart", user_cart_item_path(current_user, product), method: :patch %>
     <br>
   <% end %>
 </ul>

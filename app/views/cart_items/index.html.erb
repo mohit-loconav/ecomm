@@ -1,0 +1,10 @@
+<% provide(:title, "Cart") %>
+
+<ul class="products">
+  <% @cart_items.each do |item| %>
+    <%= render "shared/product_info", product: item.product %>
+    Quantity: <%= item.quantity %>
+    <%= link_to "remove", user_cart_item_path(current_user, item.product), method: :delete %>
+    <br>
+  <% end %>
+</ul>
