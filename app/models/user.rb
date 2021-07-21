@@ -3,6 +3,8 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   has_many :cart_items, -> { includes :product }
+  has_many :delivery_details
+  has_many :orders
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
@@ -32,6 +34,14 @@ class User < ApplicationRecord
   def reset_authenticated?(token)
     return false if self.reset_digest.nil?
     BCrypt::Password.new(self.reset_digest).is_password?(token)
+  end
+
+  def current_items(product_ids = [])
+    filter = { user_id: self.id, order_id: nil }
+    puts "here, #{product_ids}"
+    filter[:product_id] = product_ids unless product_ids.empty?
+    puts "filter: #{filter}"
+    CartItem.where(filter)
   end
 
   private def downcase_email

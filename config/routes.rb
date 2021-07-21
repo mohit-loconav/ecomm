@@ -12,8 +12,9 @@ Rails.application.routes.draw do
   resources :categories do
     resources :products, only: [:index]
   end
-  resources :users do
+  # resources :users do
     resources :cart_items, only: [:index, :update, :destroy]
-  end
+  # end
+  resources :orders, only: [:new, :create]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

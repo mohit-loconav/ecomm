@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_19_064125) do
+ActiveRecord::Schema.define(version: 2021_07_21_060607) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer "product_id"
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 2021_07_19_064125) do
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "order_id"
+    t.index ["order_id"], name: "index_cart_items_on_order_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
     t.index ["user_id"], name: "index_cart_items_on_user_id"
   end
@@ -26,6 +28,25 @@ ActiveRecord::Schema.define(version: 2021_07_19_064125) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "delivery_details", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "address"
+    t.string "phone_no"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_delivery_details_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "delivery_detail_id"
+    t.integer "total"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["delivery_detail_id"], name: "index_orders_on_delivery_detail_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -65,4 +86,5 @@ ActiveRecord::Schema.define(version: 2021_07_19_064125) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "cart_items", "orders"
 end
