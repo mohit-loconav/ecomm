@@ -1,0 +1,9 @@
+<% provide(:title, "Categories") %>
+
+<div class="center-jumbotron">
+  <h3>Choose from below</h3>
+  <% @categories.each do |category| %>
+    <%= link_to category.name,  + category_products_path(category) %>
+    <br>
+  <% end %>
+</div>

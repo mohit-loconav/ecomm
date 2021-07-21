@@ -1,0 +1,9 @@
+<% provide(:title, title) %>
+
+<ul class="products">
+  <% @products.each do |product| %>
+    <%= render "shared/product_info", { product: product } %>
+    <%= link_to "Add to cart", cart_item_path(product), method: :patch %>
+    <br><br>
+  <% end %>
+</ul>

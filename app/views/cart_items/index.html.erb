@@ -1,0 +1,13 @@
+<% provide(:title, "Cart") %>
+
+<ul class="products">
+  <% @cart_items.each do |item| %>
+    <%= render "shared/product_info", product: item.product %>
+    Quantity: <%= item.quantity %>
+    <%= link_to "add", cart_item_path(item.product), method: :patch %>
+    <%= link_to "remove", cart_item_path(item.product), method: :delete %>
+    <br><br>
+  <% end %>
+</ul>
+
+<%= link_to("Proceed to checkout", new_order_path) unless @cart_items.empty? %>
